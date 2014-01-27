@@ -7,7 +7,7 @@ public class Recombination {
 	static String[] one_Point_Recombination(String elder1, String elder2) {
 		children = new String[2];
 		int z = (int)(Math.random() * elder1.length());
-		System.out.println("Länge: " + elder1.length() + "\tn: " +z);
+		System.out.println("LÃ¤nge: " + elder1.length() + "\tn: " +z);
 		
 		children[0] = elder1.substring(0,z) + elder2.substring(z,elder2.length());
 		children[1] = elder2.substring(0,z) + elder1.substring(z,elder1.length());  

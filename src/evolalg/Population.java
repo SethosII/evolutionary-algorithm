@@ -2,6 +2,7 @@ package evolalg;
 
 public class Population {
 
+	// Population besteht aus Individuen
 	private Individuum[] population;
 
 	public Individuum[] getPopulation() {
@@ -15,10 +16,10 @@ public class Population {
 	public Population() {
 	}
 	
-	void createPopulation(int amount, int lowerBound, int upperBound) {
+	void createPopulation(int amount, int lowerBound, int upperBound, int allele) {
 		population = new Individuum[amount];
 		for (int i = 0; i < amount; i++) {
-			population[i] = new Individuum(lowerBound, upperBound);
+			population[i] = new Individuum(lowerBound, upperBound, allele);
 		}
 		this.setPopulation(population);
 	}

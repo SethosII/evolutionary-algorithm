@@ -3,65 +3,77 @@ package evolalg;
 public class Individuum {
 
 	private int length;
-	private int dec_value;
-	private String bin_value;
-	private String gray_value;
-	
+	// Individuum besteht aus mehreren Allelen
+	private int[] dec_value;
+	private String[] bin_value;
+	private String[] gray_value;
+
 	public int getLength() {
 		return length;
 	}
+
 	public void setLength(int length) {
 		this.length = length;
 	}
-	public int getDec_value() {
+
+	public int[] getDec_value() {
 		return dec_value;
 	}
-	public void setDec_value(int dec_value) {
+
+	public void setDec_value(int[] dec_value) {
 		this.dec_value = dec_value;
-		this.bin_value = Conversion.toBin(dec_value);
-		
-		while (bin_value.length() < this.length) {
-			bin_value = "0" + bin_value;
+		for (int i = 0; i < dec_value.length; i++) {
+			this.bin_value[i] = Conversion.toBin(dec_value[i]);
+			while (bin_value[i].length() < this.length) {
+				bin_value[i] = "0" + bin_value[i];
+			}
+			this.gray_value[i] = Conversion.toGray(bin_value[i]);
 		}
-		
-			
-		this.gray_value = Conversion.toGray(bin_value);
+
 	}
-	public String getBin_value() {
+
+	public String[] getBin_value() {
 		return bin_value;
 	}
-	public void setBin_value(String bin_value) {
+
+	public void setBin_value(String[] bin_value) {
 		this.bin_value = bin_value;
-		
-		
-		this.gray_value = Conversion.toGray(bin_value);
-		this.dec_value = Conversion.toDec(bin_value);
+		for (int i = 0; i < bin_value.length; i++) {
+			this.gray_value[i] = Conversion.toGray(bin_value[i]);
+			this.dec_value[i] = Conversion.toDec(bin_value[i]);
+		}
 	}
-	public String getGray_value() {
+
+	public String[] getGray_value() {
 		return gray_value;
 	}
-	public void setGray_value(String gray_value) {
+
+	public void setGray_value(String[] gray_value) {
 		this.gray_value = gray_value;
-		this.bin_value = Conversion.toBin(gray_value);
-		this.dec_value = Conversion.toDec(bin_value);
+		for (int i = 0; i < gray_value.length; i++) {
+			this.bin_value[i] = Conversion.toBin(gray_value[i]);
+			this.dec_value[i] = Conversion.toDec(bin_value[i]);
+		}
 	}
 
-
-	
 	public String toString() {
 		return dec_value + "";
 	}
-	
-	public String toBinString() {
+
+	public String[] toBinString() {
 		return getBin_value();
 	}
-	
-	public Individuum(int lowerBound, int upperBound) {
-		int value = (int)(Math.random() * (upperBound-lowerBound)) + lowerBound;
-		this.length = Conversion.toBin(upperBound).length();
-		setDec_value(value);	
+
+	public Individuum(int lowerBound, int upperBound, int allele) {
+		int[] value = new int[allele];
+		for (int i = 0; i < value.length; i++) {
+			value[i] = (int) (Math.random() * (upperBound - lowerBound))
+					+ lowerBound;
+		}
+		this.setLength(Conversion.toBin(upperBound).length());
+		this.bin_value = new String[allele];
+		this.gray_value = new String[allele]; 
+		this.setDec_value(value);
 	}
-	
-	
-	
+
 }

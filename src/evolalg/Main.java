@@ -4,7 +4,7 @@ public class Main {
 	
 	public static void main(String args[])
 	{
-		System.out.println("Evolution‰re Algorithmen");
+		System.out.println("Evolution√§re Algorithmen");
 		System.out.println("========================");
 				
 		Population p = new Population();
@@ -27,15 +27,14 @@ public class Main {
 			System.out.println(string);
 		}*/
 		
-		p.createPopulation(2, 100,  1000);
-		Individuum[] ind = p.getPopulation();
+		p.createPopulation(2, 100,  1000, 1);
+		Individuum[] population = p.getPopulation();
 		p.printPopulation("bin");
 		System.out.println("\n");
-		String[] test = Recombination.two_Point_Recombination(ind[0].toBinString(), ind[1].toBinString());
+		String[] test = Recombination.two_Point_Recombination(population[0].toBinString()[0], population[1].toBinString()[0]);
 		for (String string : test) {
 			System.out.println(string);
 		}
-		
 		
 	}
 	
