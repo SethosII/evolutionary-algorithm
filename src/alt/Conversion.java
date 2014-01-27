@@ -1,4 +1,4 @@
-package evolalg;
+package alt;
 
 public class Conversion {
 

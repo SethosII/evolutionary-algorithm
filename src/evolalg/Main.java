@@ -1,41 +1,50 @@
 package evolalg;
 
 public class Main {
-	
-	public static void main(String args[])
-	{
+
+	public static void main(String args[]) {
+
+		int amount = 500;
+		int alleles = 4;
+		int lowerBound = -100;
+		int upperBound = 100;
+
 		System.out.println("Evolutionäre Algorithmen");
 		System.out.println("========================");
-				
+
 		Population p = new Population();
-		
-		//p.createPopulation(100,  10,  1000);
-		//p.printPopulation("bin");
-		
-		/*String value = "011010011010101";
-		System.out.println("Value: " + value);
-		System.out.println("Gray:  " + Conversion.toGray(value));
-		System.out.println("Back:  " + Conversion.toBin(Conversion.toGray(value)));
-		*/
-		/*
-		p.createPopulation(2, 100,  1000);
-		Individuum[] ind = p.getPopulation();
-		p.printPopulation("bin");
-		System.out.println("\n");
-		String[] test = Recombination.one_Point_Recombination(ind[0].toBinString(), ind[1].toBinString());
-		for (String string : test) {
-			System.out.println(string);
-		}*/
-		
-		p.createPopulation(2, 100,  1000, 1);
-		Individuum[] population = p.getPopulation();
-		p.printPopulation("bin");
-		System.out.println("\n");
-		String[] test = Recombination.two_Point_Recombination(population[0].toBinString()[0], population[1].toBinString()[0]);
-		for (String string : test) {
-			System.out.println(string);
-		}
+		// 1. Bestimmung der Ausgangspopulation
+		p.createPopulation(amount, alleles, lowerBound, upperBound);
+
+		// 2. Bestimmung der Fitness der Individuen der Ausgangspopulation
+		p.calculateFitness();
+
+		int i = 0;
+		do {
+			// 3. Selektion
+			Population pForNew = p.selection("plus");
+
+			// 4. Rekombination
+			Population pNew = pForNew.recombinate(p.getPopulation().length,"intermediate");
+
+			// 5. Umweltselektion
+
+			// 6. Mutation
+			pNew.mutate(10.0);
+
+			// 7. Bestimmung der Fitness der Individuen der neuen Population
+			pNew.calculateFitness();
+
+			p = pNew;
+
+			// 8. auf Abbruchkriterium prüfen, sonst 3.
+
+			i++;
+		} while (i < 8);// p.evaluate());
+
+		System.out.println("Neu:");
+		p.printPopulation();
 		
 	}
-	
+
 }

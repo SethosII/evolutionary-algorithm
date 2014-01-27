@@ -2,78 +2,77 @@ package evolalg;
 
 public class Individuum {
 
-	private int length;
-	// Individuum besteht aus mehreren Allelen
-	private int[] dec_value;
-	private String[] bin_value;
-	private String[] gray_value;
+	private double[] alleles;
 
-	public int getLength() {
-		return length;
-	}
+	private double fitness;
 
-	public void setLength(int length) {
-		this.length = length;
-	}
-
-	public int[] getDec_value() {
-		return dec_value;
-	}
-
-	public void setDec_value(int[] dec_value) {
-		this.dec_value = dec_value;
-		for (int i = 0; i < dec_value.length; i++) {
-			this.bin_value[i] = Conversion.toBin(dec_value[i]);
-			while (bin_value[i].length() < this.length) {
-				bin_value[i] = "0" + bin_value[i];
-			}
-			this.gray_value[i] = Conversion.toGray(bin_value[i]);
-		}
-
-	}
-
-	public String[] getBin_value() {
-		return bin_value;
-	}
-
-	public void setBin_value(String[] bin_value) {
-		this.bin_value = bin_value;
-		for (int i = 0; i < bin_value.length; i++) {
-			this.gray_value[i] = Conversion.toGray(bin_value[i]);
-			this.dec_value[i] = Conversion.toDec(bin_value[i]);
-		}
-	}
-
-	public String[] getGray_value() {
-		return gray_value;
-	}
-
-	public void setGray_value(String[] gray_value) {
-		this.gray_value = gray_value;
-		for (int i = 0; i < gray_value.length; i++) {
-			this.bin_value[i] = Conversion.toBin(gray_value[i]);
-			this.dec_value[i] = Conversion.toDec(bin_value[i]);
-		}
-	}
-
-	public String toString() {
-		return dec_value + "";
-	}
-
-	public String[] toBinString() {
-		return getBin_value();
-	}
-
-	public Individuum(int lowerBound, int upperBound, int allele) {
-		int[] value = new int[allele];
-		for (int i = 0; i < value.length; i++) {
-			value[i] = (int) (Math.random() * (upperBound - lowerBound))
+	public Individuum(int alleles, int lowerBound, int upperBound) {
+		this.alleles = new double[alleles];
+		for (int i = 0; i < this.alleles.length; i++) {
+			this.alleles[i] = Math.random() * (upperBound - lowerBound)
 					+ lowerBound;
 		}
-		this.setLength(Conversion.toBin(upperBound).length());
-		this.bin_value = new String[allele];
-		this.gray_value = new String[allele]; 
-		this.setDec_value(value);
+	}
+
+	public Individuum() {
+	}
+
+	public void printIndividuum() {
+		System.out.print("|");
+		for (int i = 0; i < alleles.length; i++) {
+			System.out.printf("%+.4f|", alleles[i]);
+		}
+		System.out.println("\tF:" + fitness);
+	}
+
+	public void calculateFitness() {
+		fitness = Math.pow(alleles[0] + 10 * alleles[1], 2) + 5
+				* Math.pow(alleles[2] - alleles[3], 2)
+				+ Math.pow(alleles[1] - 2 * alleles[2], 4) + 10
+				* Math.pow(alleles[0] - alleles[3], 4);
+	}
+
+	public Individuum recombinate(Individuum individuum, String typ) {
+		Individuum tmp = new Individuum();
+		tmp.alleles = new double[this.alleles.length];
+		switch (typ) {
+		case "intermediate":
+			for (int i = 0; i < this.alleles.length; i++) {
+				tmp.alleles[i] = (this.alleles[i] + individuum.alleles[i]) / 2;
+			}
+			break;
+
+		case "arithmetic":
+			for (int i = 0; i < this.alleles.length; i++) {
+				double min;
+				double max;
+				if(this.alleles[i]>individuum.alleles[i]){
+					max = this.alleles[i];
+					min = individuum.alleles[i];
+				}else{
+
+					min = this.alleles[i];
+					max = individuum.alleles[i];
+				}
+				tmp.alleles[i] = Math.random()*(max - min) + min;
+			}
+			break;
+			
+		default:
+			System.out.println("Unbekannter Rekombinationstyp");
+			break;
+		}
+		return tmp;
+	}
+
+	public double getFitness() {
+		return fitness;
+	}
+
+	public void mutate() {
+		for (int i = 0; i < this.alleles.length; i++) {
+			this.alleles[i]+=5*Math.pow(-1, (int)(Math.random()*2)+1);
+		}
 	}
 
 }
