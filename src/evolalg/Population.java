@@ -1,5 +1,7 @@
 package evolalg;
 
+import java.util.*;
+
 public class Population {
 
 	private Individuum[] population;
@@ -40,7 +42,31 @@ public class Population {
 			}
 			selected.setPopulation(newElder);
 			break;
-
+			
+		case "q_turnier":
+			int q = 5;
+			Individuum[] indi = new Individuum[q];
+			Random r = new Random();
+			int cnt = 0;
+			
+			while (cnt < q) {
+				indi[cnt] = getPopulation()[r.nextInt()];
+				cnt++;
+			}
+			
+			double cur_fitness = 0, fitness = 1;
+			int index = 0;
+			for (int i = 0; i < indi.length; i++) {
+				cur_fitness = indi[i].getFitness();
+				if (cur_fitness < fitness) {
+					fitness = cur_fitness; 
+					index = i; }
+			}
+			
+			System.out.println("Index des Gewinners: " + index);
+			Individuum q_newElder = indi[index];	
+			break;
+			
 		default:
 			System.out.println("Unbekannter Selektionstyp");
 			break;
