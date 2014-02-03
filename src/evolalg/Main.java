@@ -4,18 +4,21 @@ public class Main {
 
 	public static void main(String args[]) {
 
-		int amount = 500;
+		int amount = 10;
 		int alleles = 4;
-		int lowerBound = -100;
-		int upperBound = 100;
+		int lowerBound = -10;
+		int upperBound = 20;
 
 		System.out.println("Evolutionäre Algorithmen");
 		System.out.println("========================");
 
 		Population p = new Population();
 		// 1. Bestimmung der Ausgangspopulation
-		p.createPopulation(amount, alleles, lowerBound, upperBound);
-
+		p.createPopulation(amount, alleles, lowerBound, upperBound, true);
+		
+		p.toDecimal();
+		p.printPopulation();
+		
 		// 2. Bestimmung der Fitness der Individuen der Ausgangspopulation
 		p.calculateFitness();
 

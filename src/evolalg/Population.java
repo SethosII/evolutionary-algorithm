@@ -6,13 +6,19 @@ public class Population {
 
 	private Individuum[] population;
 
-	public void createPopulation(int amount, int alleles, int upperBound,
-			int lowerBound) {
+	public void createPopulation(int amount, int alleles, int lowerBound,
+			int upperBound, boolean binary) {
 		population = new Individuum[amount];
 		for (int i = 0; i < amount; i++) {
-			population[i] = new Individuum(alleles, lowerBound, upperBound);
+			population[i] = new Individuum(alleles, lowerBound, upperBound, binary);
 		}
 		this.setPopulation(population);
+	}
+	
+	public void toDecimal() {
+		for (int i = 0; i < population.length; i++) {
+			population[i].toDecimal();
+		}
 	}
 
 	public void printPopulation() {

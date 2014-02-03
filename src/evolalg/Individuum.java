@@ -3,20 +3,49 @@ package evolalg;
 public class Individuum {
 
 	private double[] alleles;
+	private int lowerBound, upperBound;
+	private String[] binary_alleles;
 
 	private double fitness;
 
-	public Individuum(int alleles, int lowerBound, int upperBound) {
-		this.alleles = new double[alleles];
-		for (int i = 0; i < this.alleles.length; i++) {
-			this.alleles[i] = Math.random() * (upperBound - lowerBound)
-					+ lowerBound;
+	public Individuum(int alleles, int lowerBound, int upperBound, boolean binary) {
+		this.lowerBound = lowerBound;
+		this.upperBound = upperBound;
+		if (!binary) {
+			this.alleles = new double[alleles];
+			for (int i = 0; i < this.alleles.length; i++) {
+				this.alleles[i] = Math.random() * (upperBound - lowerBound)
+						+ lowerBound;
+			}
+		}
+		else {
+			this.binary_alleles = new String[alleles];
+			int diff = this.upperBound - this.lowerBound;
+			int length = (int)(Math.log(diff) / Math.log(2) +1);
+			for (int j = 0; j < this.binary_alleles.length; j++) {
+				String str = "";
+				for (int i = 0; i < length; i++) {
+					str += ""+(int)(Math.random() * 2);
+				}
+				binary_alleles[j] = str;
+				System.out.println(str);
+			}
+			System.out.println();
 		}
 	}
 
 	public Individuum() {
 	}
-
+	
+	public void toDecimal() {
+		this.alleles = new double[binary_alleles.length];
+		for (int i = 0; i < binary_alleles.length; i++) {
+			int dec = Integer.parseInt(binary_alleles[i], 2);
+			this.alleles[i] = this.lowerBound + ( (this.upperBound - this.lowerBound) / (Math.pow(2,binary_alleles[i].length()) - 1)) * dec;
+			System.out.println(alleles[i]);
+		}
+	}
+	
 	public void printIndividuum() {
 		System.out.print("|");
 		for (int i = 0; i < alleles.length; i++) {
@@ -24,6 +53,7 @@ public class Individuum {
 		}
 		System.out.println("\tF:" + fitness);
 	}
+	
 
 	public void calculateFitness() {
 		fitness = Math.pow(alleles[0] + 10 * alleles[1], 2) + 5
