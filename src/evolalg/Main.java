@@ -6,12 +6,13 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 
-		int amount = 100;
-		int alleles = 2;
-		int lowerBound = -10;
-		int upperBound = 10;
+		int amount = 500;
+		int alleles = 5;
+		int lowerBound = -512;
+		int upperBound = 511;
+		double mutation = 10.0;
 		boolean isBinary = false;
 
 		System.out.println("Evolutionäre Algorithmen");
@@ -43,29 +44,26 @@ public class Main {
 			// 5. Umweltselektion
 
 			// 6. Mutation
-			pNew.mutate(30.0);
+			pNew.mutate(mutation);
 
 			// 7. Bestimmung der Fitness der Individuen der neuen Population
 			pNew.calculateFitness();
 
 			p = pNew;
-//			System.out.println(i + ":");
-//			p.sort(0, p.getPopulation().length - 1);
-//			p.printPopulation();
-//			System.out.println();
-//			try {
-//				new BufferedReader(new InputStreamReader(System.in)).readLine();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
+			// System.out.println(i + ":");
+			// p.sort(0, p.getPopulation().length - 1);
+			// p.printPopulation();
+			// System.out.println();
+			// new BufferedReader(new InputStreamReader(System.in)).readLine();
 
 			// 8. auf Abbruchkriterium prüfen, sonst 3.
 
 			i++;
-		} while (i < 20);// p.evaluate());
+		} while (i < 100);// p.evaluate());
 
 		System.out.println();
 		System.out.println("Neu:");
+		p.sort(0, p.getPopulation().length - 1);
 		p.printPopulation();
 
 	}

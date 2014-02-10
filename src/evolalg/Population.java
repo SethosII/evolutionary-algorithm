@@ -10,11 +10,12 @@ public class Population {
 			int upperBound, boolean binary) {
 		population = new Individuum[amount];
 		for (int i = 0; i < amount; i++) {
-			population[i] = new Individuum(alleles, lowerBound, upperBound, binary);
+			population[i] = new Individuum(alleles, lowerBound, upperBound,
+					binary);
 		}
 		this.setPopulation(population);
 	}
-	
+
 	public void toDecimal() {
 		for (int i = 0; i < population.length; i++) {
 			population[i].toDecimal();
@@ -37,41 +38,43 @@ public class Population {
 		Population selected = new Population();
 		switch (typ) {
 		case "komma":
-			int top = this.population.length/6; // amount of selected individuals
+			int top = this.population.length / 6; // amount of selected
+													// individuals
 
 			this.sort(0, this.getPopulation().length - 1);
-
 			Individuum[] newElder = new Individuum[top];
 			for (int i = 0; i < newElder.length; i++) {
 				newElder[i] = this.population[i];
 			}
 			selected.setPopulation(newElder);
 			break;
-			
+
 		case "q_turnier":
 			int q = 5;
 			Individuum[] indi = new Individuum[q];
 			Random r = new Random();
 			int cnt = 0;
-			
+
 			while (cnt < q) {
 				indi[cnt] = getPopulation()[r.nextInt()];
 				cnt++;
 			}
-			
-			double cur_fitness = 0, fitness = 1;
+
+			double cur_fitness = 0,
+			fitness = 1;
 			int index = 0;
 			for (int i = 0; i < indi.length; i++) {
 				cur_fitness = indi[i].getFitness();
 				if (cur_fitness < fitness) {
-					fitness = cur_fitness; 
-					index = i; }
+					fitness = cur_fitness;
+					index = i;
+				}
 			}
-			
+
 			System.out.println("Index des Gewinners: " + index);
-			Individuum q_newElder = indi[index];	
+			Individuum q_newElder = indi[index];
 			break;
-			
+
 		default:
 			System.out.println("Unbekannter Selektionstyp");
 			break;
@@ -125,7 +128,7 @@ public class Population {
 						this.population[e2], "intermediate", new String[1]);
 			}
 			break;
-			
+
 		case "arithmetic":
 			for (int i = 0; i < childs2.length; i++) {
 				int e1 = (int) (Math.random() * this.population.length);
@@ -134,25 +137,29 @@ public class Population {
 						this.population[e2], "arithmetic", new String[1]);
 			}
 			break;
-			
+
 		case "ein-punkt":
-			for (int i = 0; i < childs2.length; i+=2) {
+			for (int i = 0; i < childs2.length; i += 2) {
 				int e1 = (int) (Math.random() * this.population.length);
 				int e2 = (int) (Math.random() * this.population.length);
-				int z = (int)(Math.random() * this.population.length);
-				
-				String[] args = {z+""};
-				childs2[i] = this.population[e1].recombinate(this.population[e2], "ein-punkt", args);
-				//children[0] = elder1.substring(0,z) + elder2.substring(z,elder2.length());
-				//children[1] = elder2.substring(0,z) + elder1.substring(z,elder1.length());  
+				int z = (int) (Math.random() * this.population.length);
+
+				String[] args = { z + "" };
+				childs2[i] = this.population[e1].recombinate(
+						this.population[e2], "ein-punkt", args);
+				// children[0] = elder1.substring(0,z) +
+				// elder2.substring(z,elder2.length());
+				// children[1] = elder2.substring(0,z) +
+				// elder1.substring(z,elder1.length());
 			}
 			break;
-			
-		/*case "zwei-punkt":
-			Individuum[] newElder3 = new Individuum[this.population.length];			
-			selected.setPopulation(newElder3);
-			break;*/
-			
+
+		/*
+		 * case "zwei-punkt": Individuum[] newElder3 = new
+		 * Individuum[this.population.length];
+		 * selected.setPopulation(newElder3); break;
+		 */
+
 		default:
 			break;
 		}
@@ -163,7 +170,8 @@ public class Population {
 	public void mutate(double d) {
 		int count = (int) (this.population.length * d / 100);
 		for (int i = 0; i < count; i++) {
-			this.population[(int)(Math.random()*this.population.length)].mutate();
+			this.population[(int) (Math.random() * this.population.length)]
+					.mutate();
 		}
 	}
 
