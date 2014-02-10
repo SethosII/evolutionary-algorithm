@@ -1,6 +1,6 @@
 package evolalg;
 
-import java.util.*;
+import java.util.Random;
 
 public class Population {
 
@@ -36,15 +36,14 @@ public class Population {
 	public Population selection(String typ) {
 		Population selected = new Population();
 		switch (typ) {
-		case "plus":
+		case "komma":
 			int top = this.population.length/6; // amount of selected individuals
 
 			this.sort(0, this.getPopulation().length - 1);
-			System.out.println();
 
 			Individuum[] newElder = new Individuum[top];
 			for (int i = 0; i < newElder.length; i++) {
-				newElder[i] = this.getPopulation()[i];
+				newElder[i] = this.population[i];
 			}
 			selected.setPopulation(newElder);
 			break;
@@ -114,28 +113,46 @@ public class Population {
 		return i;
 	}
 
-	public Population recombinate(int amount,String typ) {
+	public Population recombinate(int amount, String typ) {
 		Population childs = new Population();
 		Individuum[] childs2 = new Individuum[amount];
 		switch (typ) {
 		case "intermediate":
 			for (int i = 0; i < childs2.length; i++) {
-				int e1 = (int) (Math.random() * this.getPopulation().length);
-				int e2 = (int) (Math.random() * this.getPopulation().length);
-				childs2[i] = this.getPopulation()[e1].recombinate(
-						this.getPopulation()[e2], "intermediate");
+				int e1 = (int) (Math.random() * this.population.length);
+				int e2 = (int) (Math.random() * this.population.length);
+				childs2[i] = this.population[e1].recombinate(
+						this.population[e2], "intermediate", new String[1]);
 			}
 			break;
 			
 		case "arithmetic":
 			for (int i = 0; i < childs2.length; i++) {
-				int e1 = (int) (Math.random() * this.getPopulation().length);
-				int e2 = (int) (Math.random() * this.getPopulation().length);
-				childs2[i] = this.getPopulation()[e1].recombinate(
-						this.getPopulation()[e2], "arithmetic");
+				int e1 = (int) (Math.random() * this.population.length);
+				int e2 = (int) (Math.random() * this.population.length);
+				childs2[i] = this.population[e1].recombinate(
+						this.population[e2], "arithmetic", new String[1]);
 			}
 			break;
-
+			
+		case "ein-punkt":
+			for (int i = 0; i < childs2.length; i+=2) {
+				int e1 = (int) (Math.random() * this.population.length);
+				int e2 = (int) (Math.random() * this.population.length);
+				int z = (int)(Math.random() * this.population.length);
+				
+				String[] args = {z+""};
+				childs2[i] = this.population[e1].recombinate(this.population[e2], "ein-punkt", args);
+				//children[0] = elder1.substring(0,z) + elder2.substring(z,elder2.length());
+				//children[1] = elder2.substring(0,z) + elder1.substring(z,elder1.length());  
+			}
+			break;
+			
+		/*case "zwei-punkt":
+			Individuum[] newElder3 = new Individuum[this.population.length];			
+			selected.setPopulation(newElder3);
+			break;*/
+			
 		default:
 			break;
 		}
