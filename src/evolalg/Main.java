@@ -1,5 +1,8 @@
 ﻿package evolalg;
 
+import java.sql.Time;
+import java.util.Date;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -79,18 +82,22 @@ public class Main {
 
 			System.out.println("Run " + k + ":");
 			p.getPopulation()[0].printIndividuum();
+			
+			String name = "d:\\test_run_" + runs + ".csv";
+
+			GenerateCsv.generateCsvFile(name,fitness_best);
 		}
 		// System.out.println();
 		// System.out.println("Neu:");
 		// p.printPopulation();
+		
 
-		GenerateCsv.generateCsvFile("d:\\test.csv",fitness_best);
 		
 		
 		double[] plotdata = new double[fitness_best.length];
 		plotdata = fitness_best;
 				
-		Plotter plot = new Plotter("Test", plotdata);
+		//Plotter plot = new Plotter("Test", plotdata);
 		
 		//Plotter plot = new Plotter(fitness_best);	
 		
