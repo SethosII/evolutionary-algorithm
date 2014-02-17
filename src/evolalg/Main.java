@@ -6,14 +6,21 @@ import java.io.InputStreamReader;
 
 public class Main {
 
+	static double fitness_best[];
+	static double fitness_worst[];
+	
 	public static void main(String args[]) throws IOException {
 
+		int generations = 100;
 		int amount = 500;
-		int alleles = 5;
+		int alleles = 20;
 		int lowerBound = -512;
 		int upperBound = 511;
 		double mutation = 10.0;
 		boolean isBinary = false;
+		
+		fitness_best = new double[generations];
+		fitness_worst = new double[generations];
 
 		System.out.println("Evolutionäre Algorithmen");
 		System.out.println("========================");
@@ -50,22 +57,31 @@ public class Main {
 			pNew.calculateFitness();
 
 			p = pNew;
-			// System.out.println(i + ":");
-			// p.sort(0, p.getPopulation().length - 1);
-			// p.printPopulation();
-			// System.out.println();
-			// new BufferedReader(new InputStreamReader(System.in)).readLine();
+//			 System.out.println(i + ":");
+//			 p.sort(0, p.getPopulation().length - 1);
+//			 p.printPopulation();
+//			 System.out.println();
+//			 new BufferedReader(new InputStreamReader(System.in)).readLine();
 
 			// 8. auf Abbruchkriterium prüfen, sonst 3.
 
-			i++;
-		} while (i < 100);// p.evaluate());
+			fitness_best[i] = p.best.getFitness();
+			
+			i++;				
+		} while (i < generations);// p.evaluate());
 
 		System.out.println();
 		System.out.println("Neu:");
 		p.sort(0, p.getPopulation().length - 1);
 		p.printPopulation();
 
+		GenerateCsv.generateCsvFile("d:\\test.csv",fitness_best);
+		
+		//Plotter plot = new Plotter(fitness_best);	
+		
+		//XPlotter xplot = new XPlotter(fitness_best);
 	}
 
 }
+
+
