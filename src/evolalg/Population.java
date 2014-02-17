@@ -40,8 +40,6 @@ public class Population {
 		case "komma":
 			int top = this.population.length / 6; // amount of selected
 													// individuals
-
-			this.sort(0, this.getPopulation().length - 1);
 			Individuum[] newElder = new Individuum[top];
 			for (int i = 0; i < newElder.length; i++) {
 				newElder[i] = this.population[i];
@@ -162,11 +160,11 @@ public class Population {
 		return childs;
 	}
 
-	public void mutate(double d) {
+	public void mutate(double d, double strength) {
 		int count = (int) (this.population.length * d / 100);
 		for (int i = 0; i < count; i++) {
 			this.population[(int) (Math.random() * this.population.length)]
-					.mutate();
+					.mutate(strength);
 		}
 	}
 

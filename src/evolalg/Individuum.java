@@ -55,34 +55,34 @@ public class Individuum {
 
 	public void calculateFitness() {
 		// Nullstellenberechnung
-		// double tmp = 0;
-		// for (int i = 0; i < alleles.length; i++) {
-		// if (i < alleles.length - 1) {
-		// double sum = alleles[i];
-		// for (int j = 0; j < alleles.length; j++) {
-		// sum += alleles[j];
-		// }
-		// tmp += (sum - alleles.length - 1) * (sum - alleles.length - 1);
-		// } else {
-		// double prod = 1;
-		// for (int j = 0; j < alleles.length; j++) {
-		// prod *= alleles[j];
-		// }
-		// tmp += (prod - 1) * (prod - 1);
-		// }
-		// }
-		// fitness = Math.sqrt(tmp);
+		 double tmp = 0;
+		 for (int i = 0; i < alleles.length; i++) {
+		 if (i < alleles.length - 1) {
+		 double sum = alleles[i];
+		 for (int j = 0; j < alleles.length; j++) {
+		 sum += alleles[j];
+		 }
+		 tmp += (sum - alleles.length - 1) * (sum - alleles.length - 1);
+		 } else {
+		 double prod = 1;
+		 for (int j = 0; j < alleles.length; j++) {
+		 prod *= alleles[j];
+		 }
+		 tmp += (prod - 1) * (prod - 1);
+		 }
+		 }
+		 fitness = Math.sqrt(tmp);
 
 		// Griewank-Funktion
-		double sum = 0;
-		for (int i = 0; i < alleles.length; i++) {
-			sum += Math.pow(alleles[i], 2) / (400 * alleles.length);
-		}
-		double prod = 1;
-		for (int i = 0; i < alleles.length; i++) {
-			prod *= Math.cos(alleles[i] / Math.sqrt(i + 1));
-		}
-		fitness = 1 + sum - prod;
+//		double sum = 0;
+//		for (int i = 0; i < alleles.length; i++) {
+//			sum += Math.pow(alleles[i], 2) / (400 * alleles.length);
+//		}
+//		double prod = 1;
+//		for (int i = 0; i < alleles.length; i++) {
+//			prod *= Math.cos(alleles[i] / Math.sqrt(i + 1));
+//		}
+//		fitness = 1 + sum - prod;
 
 		// Erste Übung
 		// fitness = Math.pow(alleles[0] + 10 * alleles[1], 2) + 5
@@ -135,9 +135,9 @@ public class Individuum {
 		return fitness;
 	}
 
-	public void mutate() {
+	public void mutate(double strength) {
 		for (int i = 0; i < this.alleles.length; i++) {
-			this.alleles[i] += 5 * Math.pow(-1, (int) (Math.random() * 2) + 1);
+			this.alleles[i] += strength * Math.pow(-1, (int) (Math.random() * 2) + 1);
 		}
 	}
 
