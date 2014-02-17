@@ -95,24 +95,19 @@ public class Population {
 		int i = left;
 		int j = right - 1;
 		double pivot = population[right].getFitness();
-		do {
-			while (population[i].getFitness() <= pivot && i < right) {
+		while (i <= j) {
+			if (this.population[i].getFitness() > pivot) {
+				Individuum tmp = this.population[i];
+				this.population[i] = this.population[j];
+				this.population[j] = tmp;
+				j--;
+			} else {
 				i++;
 			}
-			while (population[j].getFitness() >= pivot && j > left) {
-				j--;
-			}
-			if (i < j) {
-				Individuum tmp = population[i];
-				population[i] = population[j];
-				population[j] = tmp;
-			}
-		} while (i < j);
-		if (population[i].getFitness() > pivot) {
-			Individuum tmp = population[i];
-			population[i] = population[right];
-			population[right] = tmp;
 		}
+		Individuum tmp = this.population[i];
+		this.population[i] = this.population[right];
+		this.population[right] = tmp;
 		return i;
 	}
 
