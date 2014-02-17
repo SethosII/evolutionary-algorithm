@@ -55,7 +55,7 @@ public class Main {
 				// 5. Umweltselektion
 
 				// 6. Mutation
-				pNew.mutate(rate, strength);
+				pNew.mutate(rate, strength, i, generations);
 
 				// 7. Bestimmung der Fitness der Individuen der neuen Population
 				pNew.calculateFitness();

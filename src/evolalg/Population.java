@@ -166,8 +166,10 @@ public class Population {
 		return childs;
 	}
 
-	public void mutate(double d, double strength) {
+	public void mutate(double d, double strength, int iteration, int generations) {
 		int count = (int) (this.population.length * d / 100);
+		// linear
+		strength *= (generations - iteration) / generations;
 		for (int i = 0; i < count; i++) {
 			this.population[(int) (Math.random() * this.population.length)]
 					.mutate(strength);
