@@ -5,6 +5,9 @@ import java.util.Random;
 public class Population {
 
 	private Individuum[] population;
+	
+	Individuum worst;
+	Individuum best;
 
 	public void createPopulation(int amount, int alleles, int lowerBound,
 			int upperBound, boolean binary) {
@@ -29,9 +32,12 @@ public class Population {
 	}
 
 	public void calculateFitness() {
+		this.sort(0, this.population.length-1);
 		for (int i = 0; i < population.length; i++) {
 			population[i].calculateFitness();
 		}
+		this.worst = this.population[population.length-1];
+		this.best = this.population[0];
 	}
 
 	public Population selection(String typ) {

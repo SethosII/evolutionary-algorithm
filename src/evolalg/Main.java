@@ -1,4 +1,4 @@
-package evolalg;
+﻿package evolalg;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 
 public class Main {
 
+	static double fitness_best[];
+	static double fitness_worst[];
+	
 	public static void main(String args[]) throws IOException {
 
 		int runs = 20;
@@ -17,6 +20,9 @@ public class Main {
 		double rate = 10.0;
 		double strength = 1;
 		boolean isBinary = false;
+		
+		fitness_best = new double[generations];
+		fitness_worst = new double[generations];
 
 		System.out.println("Evolutionäre Algorithmen");
 		System.out.println("========================");
@@ -54,6 +60,7 @@ public class Main {
 				// 7. Bestimmung der Fitness der Individuen der neuen Population
 				pNew.calculateFitness();
 
+
 				p = pNew;
 				// System.out.println(i + ":");
 				// p.sort(0, p.getPopulation().length - 1);
@@ -62,10 +69,11 @@ public class Main {
 				// new BufferedReader(new
 				// InputStreamReader(System.in)).readLine();
 
+
 				// 8. auf Abbruchkriterium prüfen, sonst 3.
 
 				p.sort(0, p.getPopulation().length - 1);
-				// System.out.println("Generation " + i + ":");
+				fitness_best[i] = p.best.getFitness();
 				i++;
 			} while (i < generations);// p.evaluate());
 
@@ -76,6 +84,11 @@ public class Main {
 		// System.out.println("Neu:");
 		// p.printPopulation();
 
+		GenerateCsv.generateCsvFile("d:\\test.csv",fitness_best);
+		
+		//Plotter plot = new Plotter(fitness_best);	
+		
+		//XPlotter xplot = new XPlotter(fitness_best);
 	}
 
 }

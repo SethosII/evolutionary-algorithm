@@ -54,7 +54,11 @@ public class Individuum {
 	}
 
 	public void calculateFitness() {
+<<<<<<< HEAD
 		// Nullstellenberechnung
+=======
+		 // Nullstellenberechnung
+>>>>>>> 224a848a8d6e8d392024586f15d3be8f67b7f9de
 		 double tmp = 0;
 		 for (int i = 0; i < alleles.length; i++) {
 		 if (i < alleles.length - 1) {
@@ -73,7 +77,11 @@ public class Individuum {
 		 }
 		 fitness = Math.sqrt(tmp);
 
+<<<<<<< HEAD
 		// Griewank-Funktion
+=======
+//		// Griewank-Funktion
+>>>>>>> 224a848a8d6e8d392024586f15d3be8f67b7f9de
 //		double sum = 0;
 //		for (int i = 0; i < alleles.length; i++) {
 //			sum += Math.pow(alleles[i], 2) / (400 * alleles.length);
