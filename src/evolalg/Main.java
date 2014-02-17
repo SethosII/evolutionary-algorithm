@@ -86,6 +86,12 @@ public class Main {
 
 		GenerateCsv.generateCsvFile("d:\\test.csv",fitness_best);
 		
+		
+		double[] plotdata = new double[fitness_best.length];
+		plotdata = fitness_best;
+				
+		Plotter plot = new Plotter("Test", plotdata);
+		
 		//Plotter plot = new Plotter(fitness_best);	
 		
 		//XPlotter xplot = new XPlotter(fitness_best);
