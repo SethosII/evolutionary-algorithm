@@ -21,11 +21,11 @@ public class Main {
 		int amount = 500;
 		int alleles = 10;
 		int lowerBound = -512;
-		int upperBound = 512;
+		int upperBound = 511;
 		double rate = 5.0;
 		double strength = 1;
 		boolean isBinary = false;
-		String fitnessType = "griewank"; // null, griewank, test
+		String fitnessType = "null"; // null, griewank, test
 		String mutationType = "linear"; // null, linear, exponential
 		String location = ".";
 

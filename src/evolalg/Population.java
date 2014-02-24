@@ -1,5 +1,9 @@
 package evolalg;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Population {
 
 	private Individuum[] population;
@@ -31,8 +35,7 @@ public class Population {
 		}
 	}
 
-	public void calculateFitness(String type) {
-		this.sort(0, this.population.length - 1);
+	public void calculateFitness(String type) throws IOException {
 		double sum = 0;
 		double sumLog = 1;
 		for (int i = 0; i < population.length; i++) {
@@ -40,8 +43,15 @@ public class Population {
 			sum += population[i].getFitness();
 			sumLog += Math.log(population[i].getFitness());
 		}
+		this.sort(0, this.population.length - 1);
+		
 		worst = population[population.length - 1];
 		best = population[0];
+//		System.out.println("Worst: " + worst.getFitness() + "\tBest: " + best.getFitness() + "\tResult: " + (best.getFitness() < worst.getFitness()));
+//		if (best.getFitness() > worst.getFitness()) {
+//			this.printPopulation();
+//			(new BufferedReader(new InputStreamReader(System.in))).readLine();
+//		}
 		mean = sum / population.length;
 		meanSquare = Math.pow(Math.E, 1d / (double) population.length * sumLog);
 	}
