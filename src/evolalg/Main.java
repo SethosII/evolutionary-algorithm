@@ -11,7 +11,9 @@ public class Main {
 
 	static double fitness_best[];
 	static double fitness_worst[];
-
+	static double fitness_average[];
+	static double fitness_geometric[];
+	
 	public static void main(String args[]) throws IOException {
 
 		int runs = 20;
@@ -23,13 +25,15 @@ public class Main {
 		double rate = 5.0;
 		double strength = 1;
 		boolean isBinary = false;
-		String fitnessType = "null"; // null, griewank, test
-		String mutationType = "exponential"; // null, linear, exponential
+		String fitnessType = "griewank"; // null, griewank, test
+		String mutationType = "linear"; // null, linear, exponential
 		String location = ".";
 
 		fitness_best = new double[generations];
 		fitness_worst = new double[generations];
-
+		fitness_average = new double[generations];
+		fitness_geometric = new double[generations];
+		
 		System.out.println("Evolutionäre Algorithmen");
 		System.out.println("========================");
 
@@ -78,6 +82,9 @@ public class Main {
 
 				p.sort(0, p.getPopulation().length - 1);
 				fitness_best[i] = p.best.getFitness();
+				fitness_worst[i] = p.worst.getFitness();
+				fitness_average[i] = p.mean;
+				fitness_geometric[i] = p.meanSquare;
 				
 				//System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
 				
@@ -89,9 +96,9 @@ public class Main {
 			System.out.println("mean: " + p.mean + ", meansquare: "
 					+ p.meanSquare);
 
-			String name = location + "\\test_run_" + runs + ".csv";
+			String name = location + "\\test_run_" + k + ".csv";
 
-			GenerateCsv.generateCsvFile(name, fitness_best);
+			GenerateCsv.generateCsvFile(name, fitness_best, fitness_worst, fitness_average, fitness_geometric);
 		}
 
 	}
