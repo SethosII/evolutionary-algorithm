@@ -11,19 +11,21 @@ public class Main {
 
 	static double fitness_best[];
 	static double fitness_worst[];
-	
+
 	public static void main(String args[]) throws IOException {
 
 		int runs = 20;
 		int generations = 100;
 		int amount = 500;
 		int alleles = 10;
-		int lowerBound = -10;
-		int upperBound = 10;
-		double rate = 10.0;
-		double strength = 1;
+		int lowerBound = -512;
+		int upperBound = 512;
+		double rate = 5.0;
+		double strength = 5;
 		boolean isBinary = false;
-		
+		String type = "null"; // null, griewank, test
+		String location = ".";
+
 		fitness_best = new double[generations];
 		fitness_worst = new double[generations];
 
@@ -41,7 +43,7 @@ public class Main {
 			}
 
 			// 2. Bestimmung der Fitness der Individuen der Ausgangspopulation
-			p.calculateFitness();
+			p.calculateFitness(type);
 
 			// System.out.println("Start:");
 			// p.printPopulation();
@@ -61,8 +63,7 @@ public class Main {
 				pNew.mutate(rate, strength, i, generations);
 
 				// 7. Bestimmung der Fitness der Individuen der neuen Population
-				pNew.calculateFitness();
-
+				pNew.calculateFitness(type);
 
 				p = pNew;
 				// System.out.println(i + ":");
@@ -71,7 +72,6 @@ public class Main {
 				// System.out.println();
 				// new BufferedReader(new
 				// InputStreamReader(System.in)).readLine();
-
 
 				// 8. auf Abbruchkriterium prüfen, sonst 3.
 
@@ -82,26 +82,23 @@ public class Main {
 
 			System.out.println("Run " + k + ":");
 			p.getPopulation()[0].printIndividuum();
-			
-			String name = "d:\\test_run_" + runs + ".csv";
 
-			GenerateCsv.generateCsvFile(name,fitness_best);
+			String name = location + "\\test_run_" + runs + ".csv";
+
+			GenerateCsv.generateCsvFile(name, fitness_best);
 		}
 		// System.out.println();
 		// System.out.println("Neu:");
 		// p.printPopulation();
-		
 
-		
-		
-		double[] plotdata = new double[fitness_best.length];
-		plotdata = fitness_best;
-				
-		//Plotter plot = new Plotter("Test", plotdata);
-		
-		//Plotter plot = new Plotter(fitness_best);	
-		
-		//XPlotter xplot = new XPlotter(fitness_best);
+		// double[] plotdata = new double[fitness_best.length];
+		// plotdata = fitness_best;
+
+		// Plotter plot = new Plotter("Test", plotdata);
+
+		// Plotter plot = new Plotter(fitness_best);
+
+		// XPlotter xplot = new XPlotter(fitness_best);
 	}
 
 }

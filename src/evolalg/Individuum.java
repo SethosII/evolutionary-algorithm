@@ -53,42 +53,45 @@ public class Individuum {
 		System.out.println("\tF:" + fitness);
 	}
 
-	public void calculateFitness() {
-		 // Nullstellenberechnung
-		 double tmp = 0;
-		 for (int i = 0; i < alleles.length; i++) {
-		 if (i < alleles.length - 1) {
-		 double sum = alleles[i];
-		 for (int j = 0; j < alleles.length; j++) {
-		 sum += alleles[j];
-		 }
-		 tmp += (sum - alleles.length - 1) * (sum - alleles.length - 1);
-		 } else {
-		 double prod = 1;
-		 for (int j = 0; j < alleles.length; j++) {
-		 prod *= alleles[j];
-		 }
-		 tmp += (prod - 1) * (prod - 1);
-		 }
-		 }
-		 fitness = Math.sqrt(tmp);
-
-		// Griewank-Funktion
-//		double sum = 0;
-//		for (int i = 0; i < alleles.length; i++) {
-//			sum += Math.pow(alleles[i], 2) / (400 * alleles.length);
-//		}
-//		double prod = 1;
-//		for (int i = 0; i < alleles.length; i++) {
-//			prod *= Math.cos(alleles[i] / Math.sqrt(i + 1));
-//		}
-//		fitness = 1 + sum - prod;
-
-		// Erste Übung
-		// fitness = Math.pow(alleles[0] + 10 * alleles[1], 2) + 5
-		// * Math.pow(alleles[2] - alleles[3], 2)
-		// + Math.pow(alleles[1] - 2 * alleles[2], 4) + 10
-		// * Math.pow(alleles[0] - alleles[3], 4);
+	public void calculateFitness(String type) {
+		if (type.equals("null")) {
+			// Nullstellenberechnung
+			double tmp = 0;
+			for (int i = 0; i < alleles.length; i++) {
+				if (i < alleles.length - 1) {
+					double sum = alleles[i];
+					for (int j = 0; j < alleles.length; j++) {
+						sum += alleles[j];
+					}
+					tmp += (sum - alleles.length - 1)
+							* (sum - alleles.length - 1);
+				} else {
+					double prod = 1;
+					for (int j = 0; j < alleles.length; j++) {
+						prod *= alleles[j];
+					}
+					tmp += (prod - 1) * (prod - 1);
+				}
+			}
+			fitness = Math.sqrt(tmp);
+		} else if (type.equals("griewank")) {
+			// Griewank-Funktion
+			double sum = 0;
+			for (int i = 0; i < alleles.length; i++) {
+				sum += Math.pow(alleles[i], 2) / (400 * alleles.length);
+			}
+			double prod = 1;
+			for (int i = 0; i < alleles.length; i++) {
+				prod *= Math.cos(alleles[i] / Math.sqrt(i + 1));
+			}
+			fitness = 1 + sum - prod;
+		} else if (type.equals("test")) {
+			// Erste Übung
+			fitness = Math.pow(alleles[0] + 10 * alleles[1], 2) + 5
+					* Math.pow(alleles[2] - alleles[3], 2)
+					+ Math.pow(alleles[1] - 2 * alleles[2], 4) + 10
+					* Math.pow(alleles[0] - alleles[3], 4);
+		}
 	}
 
 	public Individuum recombinate(Individuum individuum, String typ,
@@ -137,7 +140,8 @@ public class Individuum {
 
 	public void mutate(double strength) {
 		for (int i = 0; i < this.alleles.length; i++) {
-			this.alleles[i] += strength * Math.pow(-1, (int) (Math.random() * 2) + 1);
+			this.alleles[i] += strength
+					* Math.pow(-1, (int) (Math.random() * 2) + 1);
 		}
 	}
 

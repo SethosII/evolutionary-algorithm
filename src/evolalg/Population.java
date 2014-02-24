@@ -5,7 +5,7 @@ import java.util.Random;
 public class Population {
 
 	private Individuum[] population;
-	
+
 	Individuum worst;
 	Individuum best;
 
@@ -31,12 +31,12 @@ public class Population {
 		}
 	}
 
-	public void calculateFitness() {
-		this.sort(0, this.population.length-1);
+	public void calculateFitness(String type) {
+		this.sort(0, this.population.length - 1);
 		for (int i = 0; i < population.length; i++) {
-			population[i].calculateFitness();
+			population[i].calculateFitness(type);
 		}
-		this.worst = this.population[population.length-1];
+		this.worst = this.population[population.length - 1];
 		this.best = this.population[0];
 	}
 

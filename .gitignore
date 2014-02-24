@@ -4,3 +4,10 @@
 *.jar
 *.war
 *.ear
+
+# output
+*.csv
+
+# ignore
+!jcommon-1.0.21.jar
+!jfreechart-1.0.17.jar
