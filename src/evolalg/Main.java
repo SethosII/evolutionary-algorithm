@@ -78,6 +78,9 @@ public class Main {
 
 				p.sort(0, p.getPopulation().length - 1);
 				fitness_best[i] = p.best.getFitness();
+				
+				System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
+				
 				i++;
 			} while (i < generations);// p.evaluate());
 
@@ -90,18 +93,7 @@ public class Main {
 
 			GenerateCsv.generateCsvFile(name, fitness_best);
 		}
-		// System.out.println();
-		// System.out.println("Neu:");
-		// p.printPopulation();
 
-		// double[] plotdata = new double[fitness_best.length];
-		// plotdata = fitness_best;
-
-		// Plotter plot = new Plotter("Test", plotdata);
-
-		// Plotter plot = new Plotter(fitness_best);
-
-		// XPlotter xplot = new XPlotter(fitness_best);
 	}
 
 }
