@@ -1,13 +1,13 @@
 package evolalg;
 
-import java.util.Random;
-
 public class Population {
 
 	private Individuum[] population;
 
-	Individuum worst;
-	Individuum best;
+	public Individuum worst;
+	public Individuum best;
+	public double mean;
+	public double meanSquare;
 
 	public void createPopulation(int amount, int alleles, int lowerBound,
 			int upperBound, boolean binary) {
@@ -33,11 +33,17 @@ public class Population {
 
 	public void calculateFitness(String type) {
 		this.sort(0, this.population.length - 1);
+		double sum = 0;
+		double prod = 1;
 		for (int i = 0; i < population.length; i++) {
 			population[i].calculateFitness(type);
+			sum += population[i].getFitness();
+			prod *= population[i].getFitness();
 		}
-		this.worst = this.population[population.length - 1];
-		this.best = this.population[0];
+		worst = population[population.length - 1];
+		best = population[0];
+		mean = sum / population.length;
+		meanSquare = Math.pow(prod, (double) (1 / population.length));
 	}
 
 	public Population selection(String typ) {
@@ -53,31 +59,31 @@ public class Population {
 			selected.setPopulation(newElder);
 			break;
 
-		case "q_turnier":
-			int q = 5;
-			Individuum[] indi = new Individuum[q];
-			Random r = new Random();
-			int cnt = 0;
-
-			while (cnt < q) {
-				indi[cnt] = getPopulation()[r.nextInt()];
-				cnt++;
-			}
-
-			double cur_fitness = 0,
-			fitness = 1;
-			int index = 0;
-			for (int i = 0; i < indi.length; i++) {
-				cur_fitness = indi[i].getFitness();
-				if (cur_fitness < fitness) {
-					fitness = cur_fitness;
-					index = i;
-				}
-			}
-
-			System.out.println("Index des Gewinners: " + index);
-			Individuum q_newElder = indi[index];
-			break;
+		// case "q_turnier":
+		// int q = 5;
+		// Individuum[] indi = new Individuum[q];
+		// Random r = new Random();
+		// int cnt = 0;
+		//
+		// while (cnt < q) {
+		// indi[cnt] = getPopulation()[r.nextInt()];
+		// cnt++;
+		// }
+		//
+		// double cur_fitness = 0,
+		// fitness = 1;
+		// int index = 0;
+		// for (int i = 0; i < indi.length; i++) {
+		// cur_fitness = indi[i].getFitness();
+		// if (cur_fitness < fitness) {
+		// fitness = cur_fitness;
+		// index = i;
+		// }
+		// }
+		//
+		// System.out.println("Index des Gewinners: " + index);
+		// Individuum q_newElder = indi[index];
+		// break;
 
 		default:
 			System.out.println("Unbekannter Selektionstyp");

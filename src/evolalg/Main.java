@@ -82,6 +82,8 @@ public class Main {
 
 			System.out.println("Run " + k + ":");
 			p.getPopulation()[0].printIndividuum();
+			System.out.println("mean: " + p.mean + ", meansquare: "
+					+ p.meanSquare);
 
 			String name = location + "\\test_run_" + runs + ".csv";
 
