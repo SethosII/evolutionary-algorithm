@@ -79,7 +79,7 @@ public class Main {
 				p.sort(0, p.getPopulation().length - 1);
 				fitness_best[i] = p.best.getFitness();
 				
-				System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
+				//System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
 				
 				i++;
 			} while (i < generations);// p.evaluate());
