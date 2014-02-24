@@ -34,16 +34,16 @@ public class Population {
 	public void calculateFitness(String type) {
 		this.sort(0, this.population.length - 1);
 		double sum = 0;
-		double prod = 1;
+		double sumLog = 1;
 		for (int i = 0; i < population.length; i++) {
 			population[i].calculateFitness(type);
 			sum += population[i].getFitness();
-			prod *= population[i].getFitness();
+			sumLog += Math.log(population[i].getFitness());
 		}
 		worst = population[population.length - 1];
 		best = population[0];
 		mean = sum / population.length;
-		meanSquare = Math.pow(prod, (double) (1 / population.length));
+		meanSquare = Math.pow(Math.E, 1d / (double) population.length * sumLog);
 	}
 
 	public Population selection(String typ) {
@@ -166,19 +166,35 @@ public class Population {
 		 */
 
 		default:
+			System.out.println("Unbekannter Rekombinationstyp");
 			break;
 		}
 		childs.setPopulation(childs2);
 		return childs;
 	}
 
-	public void mutate(double d, double strength, int iteration, int generations) {
+	public void mutate(double d, double strength, int iteration,
+			int generations, String type) {
 		int count = (int) (this.population.length * d / 100);
-		// linear
-		strength *= (generations - iteration) / generations;
-		for (int i = 0; i < count; i++) {
+		switch (type) {
+		case "null":
+			break;
+
+		case "linear":
+			strength *= (generations - iteration) / generations;
+			break;
+
+		case "exponential":
 			this.population[(int) (Math.random() * this.population.length)]
 					.mutate(strength);
+			break;
+
+		case "special":
+			break;
+			
+		default:
+			System.out.println("Unbekannter Mutationstyp");
+			break;
 		}
 	}
 

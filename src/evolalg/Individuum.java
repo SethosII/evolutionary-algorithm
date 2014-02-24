@@ -54,8 +54,8 @@ public class Individuum {
 	}
 
 	public void calculateFitness(String type) {
-		if (type.equals("null")) {
-			// Nullstellenberechnung
+		switch (type) {
+		case "null":
 			double tmp = 0;
 			for (int i = 0; i < alleles.length; i++) {
 				if (i < alleles.length - 1) {
@@ -74,8 +74,9 @@ public class Individuum {
 				}
 			}
 			fitness = Math.sqrt(tmp);
-		} else if (type.equals("griewank")) {
-			// Griewank-Funktion
+			break;
+
+		case "griewank":
 			double sum = 0;
 			for (int i = 0; i < alleles.length; i++) {
 				sum += Math.pow(alleles[i], 2) / (400 * alleles.length);
@@ -85,12 +86,18 @@ public class Individuum {
 				prod *= Math.cos(alleles[i] / Math.sqrt(i + 1));
 			}
 			fitness = 1 + sum - prod;
-		} else if (type.equals("test")) {
-			// Erste Übung
+			break;
+
+		case "test":
 			fitness = Math.pow(alleles[0] + 10 * alleles[1], 2) + 5
 					* Math.pow(alleles[2] - alleles[3], 2)
 					+ Math.pow(alleles[1] - 2 * alleles[2], 4) + 10
 					* Math.pow(alleles[0] - alleles[3], 4);
+			break;
+
+		default:
+			System.out.println("Unbekannte Fitnessfunktion");
+			break;
 		}
 	}
 

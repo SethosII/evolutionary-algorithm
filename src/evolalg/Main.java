@@ -21,9 +21,10 @@ public class Main {
 		int lowerBound = -512;
 		int upperBound = 512;
 		double rate = 5.0;
-		double strength = 5;
+		double strength = 1;
 		boolean isBinary = false;
-		String type = "null"; // null, griewank, test
+		String fitnessType = "null"; // null, griewank, test
+		String mutationType = "exponential"; // null, linear, exponential
 		String location = ".";
 
 		fitness_best = new double[generations];
@@ -43,7 +44,7 @@ public class Main {
 			}
 
 			// 2. Bestimmung der Fitness der Individuen der Ausgangspopulation
-			p.calculateFitness(type);
+			p.calculateFitness(fitnessType);
 
 			// System.out.println("Start:");
 			// p.printPopulation();
@@ -60,10 +61,10 @@ public class Main {
 				// 5. Umweltselektion
 
 				// 6. Mutation
-				pNew.mutate(rate, strength, i, generations);
+				pNew.mutate(rate, strength, i, generations, mutationType);
 
 				// 7. Bestimmung der Fitness der Individuen der neuen Population
-				pNew.calculateFitness(type);
+				pNew.calculateFitness(fitnessType);
 
 				p = pNew;
 				// System.out.println(i + ":");
