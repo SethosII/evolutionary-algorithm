@@ -59,43 +59,28 @@ public class GenerateFile {
 		}
 	}
 
-	public static void generateMeanCsvFile(String fullPath, String partname,
-			int runs, int generations) {
+	
+	public static void generateMeanCsvFile(String fullPath, double[] runs_best, double[] runs_worst, double[] runs_mean, double[] runs_meansquare) {
+		
 		try {
 
 			FileWriter writer = new FileWriter(fullPath);
-			BufferedReader[] in = new BufferedReader[runs];
-			for (int i = 0; i < runs; i++) {
 
-				String name = "" + partname + "" + i + ".csv";
-				in[i] = new BufferedReader(new FileReader(name));
-			}
-			System.out.println("test " + in[1].readLine());
-			for (int j = 0; j < generations; j++) {
-				String[][] str = new String[runs][5];
-				for (int i = 0; i < runs; i++) {
-					String tmp = in[i].readLine();
-					System.out.println(i + " temp: " +tmp);
-					str[i]=tmp.split(",");
-				}
-				double[] temp = new double[5];
-				for (int k = 0; k < runs; k++) {
-				for (int i = 0; i < str[0].length; i++) {
-					temp[i] += Double.parseDouble(str[k][i]);
-				}}
-				for (int i = 0; i < str[0].length; i++) {
-					temp[i] = temp[i]/runs;
-					System.out.println(temp[i]);
-				}
-				for (int i = 0; i < 5; i++) {
-					writer.append(Double.toString(temp[i]));
-					writer.append(',');
-				}
+
+			for (int i = 0; i < runs_best.length; i++) {
+			
+				writer.append(Integer.toString(i+1));
+				writer.append(',');
+				writer.append(Double.toString(runs_best[i]));
+				writer.append(',');
+				writer.append(Double.toString(runs_worst[i]));
+				writer.append(',');
+				writer.append(Double.toString(runs_mean[i]));
+				writer.append(',');
+				writer.append(Double.toString(runs_meansquare[i]));
 				writer.append('\n');
 			}
-
-
-
+		
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {

@@ -14,23 +14,39 @@ public class Main {
 	static double fitness_average[];
 	static double fitness_geometric[];
 	
+	private static double[] runs_best;
+	private static double[] runs_worst;
+	private static double[] runs_mean;
+	private static double[] runs_meansquare;
+	
 	public static void main(String args[]) throws IOException {
 
-		int runs = 5;
-		int generations = 2;
+		int runs = 20;
+		int generations = 100;
 		int amountStart = 500;
 		int amountEnd = 500;
-		int alleles = 5;
+		int alleles = 50;
 		int lowerBound = -10;
 		int upperBound = 10;
-		double rate = 10.0;
+		double rate = 30.0;
 		double strength = 5;
 		double selectionRate = 1d/6d;
 		boolean isBinary = false;
-		String fitnessType = "griewank"; // null, griewank, test
-		String mutationType = "null"; // null, linear, exponential, exponentialdec, special
+		String fitnessType = "null"; // null, griewank, test
+		String mutationType = "exponentialdec"; // null, linear, exponential, exponentialdec, special
 		String populationType = "null"; // null, linear
 		String location = ".";
+		
+		runs_best = new double[generations];
+		runs_worst = new double[generations];
+		runs_mean = new double[generations];
+		runs_meansquare = new double[generations];
+		for (int i = 0; i < runs_best.length; i++) {
+			runs_best[i] = 0;
+			runs_worst[i] = 0;
+			runs_mean[i] = 0;
+			runs_meansquare[i] = 0;
+		}
 
 		fitness_best = new double[generations];
 		fitness_worst = new double[generations];
@@ -98,7 +114,19 @@ public class Main {
 				
 				//System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
 				
+				runs_best[i] += fitness_best[i];
+				runs_worst[i] += fitness_worst[i];
+				runs_mean[i] += fitness_average[i];
+				runs_meansquare[i] += fitness_geometric[i];
 				i++;
+			}
+			
+			for (int x = 0; x < runs_best.length; x++) {
+				runs_best[x] /= runs;
+				runs_worst[x] /= runs;
+				runs_mean[x] /= runs;
+				runs_meansquare[x] /= runs;
+				
 			}
 
 			System.out.println("Run " + k + ":");
@@ -113,8 +141,7 @@ public class Main {
 		}
 		String csvname_mean = location + "\\" + fitnessType + "_Allele_" + alleles + "_gesamt.csv";
 		
-		String partname = "" + fitnessType + "_Allele_" + alleles + "_run_";
-		GenerateFile.generateMeanCsvFile(csvname_mean, partname, runs, generations);
+		GenerateFile.generateMeanCsvFile(csvname_mean, runs_best, runs_worst, runs_mean, runs_meansquare);
 
 	}
 
