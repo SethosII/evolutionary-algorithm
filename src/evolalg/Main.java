@@ -101,7 +101,7 @@ public class Main {
 
 			String name = location + "\\test_run_" + k + ".csv";
 
-			GenerateCsv.generateCsvFile(name, fitness_best, fitness_worst, fitness_average, fitness_geometric);
+			GenerateFile.generateCsvFile(name, fitness_best, fitness_worst, fitness_average, fitness_geometric);
 		}
 
 	}

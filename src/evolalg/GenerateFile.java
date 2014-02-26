@@ -17,7 +17,8 @@ public class GenerateFile
 				writer.append(temp);
 				
 				for(int j = 0; j < alleles; j++) {
-					writer.append(pop.getPopulation()[0].);
+					writer.append(Double.toString(pop.getPopulation()[0].getAlleles()[j]));
+					writer.append('\t');
 				}
 				
 				//writer.append(pop.getPopulation().printIndividuum());

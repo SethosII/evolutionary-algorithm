@@ -3,6 +3,14 @@
 public class Individuum {
 
 	private double[] alleles;
+	public double[] getAlleles() {
+		return alleles;
+	}
+
+	public void setAlleles(double[] alleles) {
+		this.alleles = alleles;
+	}
+
 	private int lowerBound, upperBound;
 	private String[] binary_alleles;
 
