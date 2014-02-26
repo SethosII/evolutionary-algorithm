@@ -3,8 +3,37 @@ package evolalg;
 import java.io.FileWriter;
 import java.io.IOException;
  
-public class GenerateCsv
+public class GenerateFile
 {
+
+	public static void savePopulationToFile(String fullPath, Population pop, int alleles) {
+		try {
+			FileWriter writer = new FileWriter(fullPath);
+			
+			String temp = "";
+			
+			for (int i = 0; i < pop.getPopulation().length; i++) {
+				temp = "Individuum " + i + ":\t";
+				writer.append(temp);
+				
+				for(int j = 0; j < alleles; j++) {
+					writer.append(pop.getPopulation()[0].);
+				}
+				
+				//writer.append(pop.getPopulation().printIndividuum());
+				writer.append('\n');						
+			}
+			
+		    writer.flush();
+		    writer.close();
+			
+		}
+		catch(IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
    public static void generateCsvFile(String fullPath, double[] best, double[] worst, double[] mean, double[] geometric)
    {
 	try
@@ -31,5 +60,5 @@ public class GenerateCsv
 	{
 	     e.printStackTrace();
 	} 
-    }
+  }
 }
