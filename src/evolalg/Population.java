@@ -1,6 +1,7 @@
 package evolalg;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -234,4 +235,38 @@ public class Population {
 		return population;
 	}
 
+	public void loadPopulation(String name, int amount) throws IOException {
+		
+		BufferedReader in = null;
+		this.population = new Individuum[amount];
+		int i = 0;
+		
+		try {
+			in = new BufferedReader(new FileReader(name));
+			String line = in.readLine();
+			while (line != null && (i < amount)) {
+				String[] temp = line.split("\\s");
+				double[] double_tmp = new double[temp.length];
+				for (int x = 0; x < temp.length; x++) {
+					double_tmp[x] = Double.parseDouble(temp[x]);
+					System.out.println(double_tmp[x]);
+				}
+				System.out.println(i);
+				population[i]=new Individuum();
+				population[i].setAlleles(double_tmp);
+				i++;
+			}
+		}
+		catch(IOException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if (in!=null) 
+				in.close();
+		}
+	}
 }
+	
+
