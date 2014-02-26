@@ -50,9 +50,9 @@ public class Main {
 				p.toDecimal();
 			}
 			
-			// Anfangspopulation in Datei schreiben
-			String pathname = location + "\\population_" + k + ".txt";
-			GenerateFile.savePopulationToFile(pathname, p, alleles);
+//			// Anfangspopulation in Datei schreiben
+//			String pathname = location + "\\population_" + k + ".txt";
+//			GenerateFile.savePopulationToFile(pathname, p, alleles);
 
 			// 2. Bestimmung der Fitness der Individuen der Ausgangspopulation
 			p.calculateFitness(fitnessType);
