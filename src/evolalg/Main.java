@@ -18,15 +18,18 @@ public class Main {
 
 		int runs = 20;
 		int generations = 100;
-		int amount = 500;
-		int alleles = 10;
-		int lowerBound = -512;
-		int upperBound = 511;
-		double rate = 5.0;
-		double strength = 1;
+		int amountStart = 500;
+		int amountEnd = 500;
+		int alleles = 20;
+		int lowerBound = -10;
+		int upperBound = 10;
+		double rate = 10.0;
+		double strength = 5;
+		double selectionRate = 1d/6d;
 		boolean isBinary = false;
-		String fitnessType = "null"; // null, griewank, test
-		String mutationType = "linear"; // null, linear, exponential
+		String fitnessType = "griewank"; // null, griewank, test
+		String mutationType = "null"; // null, linear, exponential, exponentialdec, special
+		String populationType = "null"; // null, linear
 		String location = ".";
 
 		fitness_best = new double[generations];
@@ -40,7 +43,7 @@ public class Main {
 		for (int k = 0; k < runs; k++) {
 			Population p = new Population();
 			// 1. Bestimmung der Ausgangspopulation
-			p.createPopulation(amount, alleles, lowerBound, upperBound,
+			p.createPopulation(amountStart, alleles, lowerBound, upperBound,
 					isBinary);
 
 			if (isBinary) {
@@ -56,11 +59,11 @@ public class Main {
 			int i = 0;
 			do {
 				// 3. Selektion
-				Population pForNew = p.selection("komma");
+				Population pForNew = p.selection("komma", selectionRate);
 
 				// 4. Rekombination
-				Population pNew = pForNew.recombinate(p.getPopulation().length,
-						"arithmetic");
+				Population pNew = pForNew.recombinate(
+						"arithmetic", populationType, i, amountEnd);
 
 				// 5. Umweltselektion
 

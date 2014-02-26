@@ -44,24 +44,28 @@ public class Population {
 			sumLog += Math.log(population[i].getFitness());
 		}
 		this.sort(0, this.population.length - 1);
-		
+
 		worst = population[population.length - 1];
 		best = population[0];
-//		System.out.println("Worst: " + worst.getFitness() + "\tBest: " + best.getFitness() + "\tResult: " + (best.getFitness() < worst.getFitness()));
-//		if (best.getFitness() > worst.getFitness()) {
-//			this.printPopulation();
-//			(new BufferedReader(new InputStreamReader(System.in))).readLine();
-//		}
+		// System.out.println("Worst: " + worst.getFitness() + "\tBest: " +
+		// best.getFitness() + "\tResult: " + (best.getFitness() <
+		// worst.getFitness()));
+		// if (best.getFitness() > worst.getFitness()) {
+		// this.printPopulation();
+		// (new BufferedReader(new InputStreamReader(System.in))).readLine();
+		// }
 		mean = sum / population.length;
 		meanSquare = Math.pow(Math.E, 1d / (double) population.length * sumLog);
 	}
 
-	public Population selection(String typ) {
+	public Population selection(String typ, double selectionRate) {
 		Population selected = new Population();
 		switch (typ) {
 		case "komma":
-			int top = this.population.length / 6; // amount of selected
-													// individuals
+			int top = (int) (this.population.length * selectionRate); // amount
+																		// of
+																		// selected
+			// individuals
 			Individuum[] newElder = new Individuum[top];
 			for (int i = 0; i < newElder.length; i++) {
 				newElder[i] = this.population[i];
@@ -131,7 +135,9 @@ public class Population {
 		return i;
 	}
 
-	public Population recombinate(int amount, String typ) {
+	public Population recombinate(String typ, String type, int iteration,
+			int amountEnd) {
+		int amount = amountEnd;
 		Population childs = new Population();
 		Individuum[] childs2 = new Individuum[amount];
 		switch (typ) {
@@ -183,28 +189,35 @@ public class Population {
 		return childs;
 	}
 
-	public void mutate(double d, double strength, int iteration,
+	public void mutate(double rate, double strength, int iteration,
 			int generations, String type) {
-		int count = (int) (this.population.length * d / 100);
+		int length = this.population.length;
+		int count = (int) (length * rate / 100);
 		switch (type) {
 		case "null":
 			break;
 
 		case "linear":
-			strength *= (generations - iteration) / generations;
+			count *= (generations - iteration) / generations;
 			break;
 
 		case "exponential":
-			this.population[(int) (Math.random() * this.population.length)]
-					.mutate(strength);
+			count *= Math.pow(Math.E, -0.04 * iteration);
+			break;
+
+		case "exponentialdec":
+			count *= 1d - Math.pow(Math.E, 0.04 * iteration) / 60d;
 			break;
 
 		case "special":
 			break;
-			
+
 		default:
 			System.out.println("Unbekannter Mutationstyp");
 			break;
+		}
+		for (int i = 0; i < count; i++) {
+			this.population[(int) (Math.random() * length)].mutate(strength);
 		}
 	}
 
