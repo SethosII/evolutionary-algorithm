@@ -12,3 +12,4 @@ population_0.txt
 population_1.txt
 population_10.txt
 *.txt
+!Startpopulation*.txt
