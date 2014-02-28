@@ -23,6 +23,31 @@ public class Population {
 		}
 		this.setPopulation(population);
 	}
+	
+	// Population nach Selektion
+	public void createPopulation(Population adults, Population children, String type) throws IOException {
+		population = new Individuum[adults.getPopulation().length + children.getPopulation().length];
+		for (int i = 0; i < adults.getPopulation().length; i++) {
+			population[i] = adults.getPopulation()[i];
+		}
+		for (int i = adults.getPopulation().length; i < adults.getPopulation().length + children.getPopulation().length; i++) {
+			population[i] = children.getPopulation()[i - adults.getPopulation().length];
+		}
+		System.out.println("Length: " + this.population.length);
+		population[114].printIndividuum();
+		//this.printPopulation();
+		
+		this.calculateFitness(type);
+		
+		this.sort(0, this.population.length-1);
+		Individuum[] temp = new Individuum[adults.getPopulation().length];
+		for (int i = 0; i < temp.length; i++) {
+			temp[i] = population[i];
+		}
+		this.setPopulation(temp);
+			
+		
+	}
 
 	public void toDecimal() {
 		for (int i = 0; i < population.length; i++) {
@@ -32,6 +57,7 @@ public class Population {
 
 	public void printPopulation() {
 		for (int i = 0; i < population.length; i++) {
+			System.out.print(i + ": ");
 			population[i].printIndividuum();
 		}
 	}
@@ -72,6 +98,16 @@ public class Population {
 				newElder[i] = this.population[i];
 			}
 			selected.setPopulation(newElder);
+			break;
+			
+		case "plus":
+			int best = (int)(this.population.length * selectionRate); // amount
+			// individuals
+			Individuum[] newElder2 = new Individuum[best];
+			for (int i = 0; i < newElder2.length; i++) {
+				newElder2[i] = this.population[i];
+			}
+			
 			break;
 
 		// case "q_turnier":

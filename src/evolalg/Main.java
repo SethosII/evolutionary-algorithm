@@ -22,22 +22,22 @@ public class Main {
 	
 	public static void main(String args[]) throws IOException {
 
-		int runs = 20;
+		int runs = 1;
 		int generations = 100;
-		int amountStart = 500;
+		int amountStart = 100;
 		int amountEnd = 500;
-		int alleles = 50;
-		int lowerBound = -10;
-		int upperBound = 10;
+		int alleles = 10;
+		int lowerBound = -512;
+		int upperBound = 511;
 		double rate = 30.0;
 		double strength = 5;
 		double selectionRate = 1d/6d;
 		boolean isBinary = false;
-		String fitnessType = "null"; // null, griewank, test
-		String mutationType = "exponentialdec"; // null, linear, exponential, exponentialdec, special
+		String fitnessType = "griewank"; // null, griewank, test
+		String mutationType = "linear"; // null, linear, exponential, exponentialdec, special
 		String populationType = "null"; // null, linear
 		String location = ".";
-		boolean getVars = true;
+		boolean getVars = false;
 		
 		if (getVars) {
 			Scanner sc = new Scanner(System.in);
@@ -91,6 +91,79 @@ public class Main {
 		System.out.println("Evolutionäre Algorithmen");
 		System.out.println("========================");
 
+//		for (int k = 0; k < runs; k++) {
+//			Population p = new Population();
+//			// 1. Bestimmung der Ausgangspopulation
+//			p.createPopulation(amountStart, alleles, lowerBound, upperBound,
+//					isBinary);
+//
+////			String name = "Startpopulation_" + fitnessType + "_Allele_" + alleles + ".txt";
+////			p.loadPopulation(name, amountStart);
+//					
+//			if (isBinary) {
+//				p.toDecimal();
+//			}
+//			
+//			// Anfangspopulation in Datei schreiben
+//			String pathname = location + "\\" + fitnessType + "_Allele_" + alleles + ".txt";
+//			GenerateFile.savePopulationToFile(pathname, p, alleles);
+//
+//			// 2. Bestimmung der Fitness der Individuen der Ausgangspopulation
+//			p.calculateFitness(fitnessType);
+//
+//			// System.out.println("Start:");
+//			// p.printPopulation();
+
+//			double x = 10000;
+//			double abbruch = 1e-10;
+//			int i = 0;
+//			 while (x > abbruch) {
+//				// 3. Selektion
+//				Population pForNew = p.selection("komma", selectionRate);
+//
+//				// 4. Rekombination
+//				Population pNew = pForNew.recombinate(
+//						"arithmetic", populationType, i, amountEnd);
+//				
+//				// 5. Umweltselektion
+//				Population pEnv = new Population();
+//				pEnv.createPopulation(p, pForNew, fitnessType);
+//				//pEnv.selection("komma", selectionRate);
+//				pNew.setPopulation(pEnv.getPopulation());
+//
+//				// 6. Mutation
+//				pNew.mutate(rate, strength, i, generations, mutationType);
+//
+//				// 7. Bestimmung der Fitness der Individuen der neuen Population
+//				pNew.calculateFitness(fitnessType);
+//
+//				p = pNew;
+//				// System.out.println(i + ":");
+//				// p.sort(0, p.getPopulation().length - 1);
+//				// p.printPopulation();
+//				// System.out.println();
+//				// new BufferedReader(new
+//				// InputStreamReader(System.in)).readLine();
+//
+//				// 8. auf Abbruchkriterium prüfen, sonst 3.
+//
+//				p.sort(0, p.getPopulation().length - 1);
+////				fitness_best[i] = p.best.getFitness();
+////				fitness_worst[i] = p.worst.getFitness();
+////				fitness_average[i] = p.mean;
+////				fitness_geometric[i] = p.meanSquare;
+////				
+////				//System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
+////				
+////				runs_best[i] += fitness_best[i];
+////				runs_worst[i] += fitness_worst[i];
+////				runs_mean[i] += fitness_average[i];
+////				runs_meansquare[i] += fitness_geometric[i];
+//				x = p.best.getFitness();
+//				System.out.println("Generation: " + i + "\tFitness: " + x);
+//				i++;
+//			}		
+		
 		for (int k = 0; k < runs; k++) {
 			Population p = new Population();
 			// 1. Bestimmung der Ausgangspopulation
@@ -122,7 +195,7 @@ public class Main {
 				// 4. Rekombination
 				Population pNew = pForNew.recombinate(
 						"arithmetic", populationType, i, amountEnd);
-
+							
 				// 5. Umweltselektion
 
 				// 6. Mutation
