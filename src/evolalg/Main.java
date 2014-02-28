@@ -2,6 +2,7 @@
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.Scanner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +37,40 @@ public class Main {
 		String mutationType = "exponentialdec"; // null, linear, exponential, exponentialdec, special
 		String populationType = "null"; // null, linear
 		String location = ".";
+		boolean getVars = true;
+		
+		if (getVars) {
+			Scanner sc = new Scanner(System.in);
+			int choice = 0;
+			System.out.println("Bitte Variablen eingeben:");
+			System.out.println("Funktion:\n\t0 - Test\n\t1 - Griewank\n\t2 - Nullstellenberechnung\n\t--> ");
+			choice = sc.nextInt();
+			if (choice == 1) fitnessType = "griewank";
+			else if (choice == 2) fitnessType = "null";
+			else fitnessType = "test";
+			System.out.print("Generationen --> ");
+			generations = sc.nextInt();
+			System.out.print("Binär kodiert? (0 - nein, 1 - ja) --> ");
+			if (sc.nextInt() == 1) isBinary = true;
+			else isBinary = false;
+			System.out.print("Startpopulation: ");
+			amountStart = sc.nextInt();
+	//		System.out.print("Endpopulation: ");
+	//		amountEnd = sc.nextInt();
+			System.out.print("Allele --> ");
+			alleles = sc.nextInt();
+			System.out.print("Lower Bound --> ");
+			lowerBound = sc.nextInt();
+			System.out.print("Upper Bound --> ");
+			upperBound = sc.nextInt();
+			System.out.print("Mutationstyp:\n\t0 - Constant\n\t1 - Linear\n\t2 - Exponential\n\t3 - Exponential Dec\n--> ");
+			choice = sc.nextInt();
+			if (choice == 1) mutationType = "linear";
+			else if (choice == 2) mutationType = "exponential";
+			else if (choice == 3) mutationType = "exponentialdec";
+			else mutationType = "null";		
+		}
+		
 		
 		runs_best = new double[generations];
 		runs_worst = new double[generations];
