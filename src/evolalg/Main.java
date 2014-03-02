@@ -228,14 +228,6 @@ public class Main {
 				runs_meansquare[i] += fitness_geometric[i];
 				i++;
 			}
-			
-			for (int x = 0; x < runs_best.length; x++) {
-				runs_best[x] /= runs;
-				runs_worst[x] /= runs;
-				runs_mean[x] /= runs;
-				runs_meansquare[x] /= runs;
-				
-			}
 
 			System.out.println("Run " + k + ":");
 			p.getPopulation()[0].printIndividuum();
@@ -247,6 +239,15 @@ public class Main {
 			
 
 		}
+		
+		for (int x = 0; x < runs_best.length; x++) {
+			runs_best[x] /= runs;
+			runs_worst[x] /= runs;
+			runs_mean[x] /= runs;
+			runs_meansquare[x] /= runs;
+			
+		}
+		
 		String csvname_mean = location + "\\" + fitnessType + "_Allele_" + alleles + "_gesamt.csv";
 		
 		GenerateFile.generateMeanCsvFile(csvname_mean, runs_best, runs_worst, runs_mean, runs_meansquare);
