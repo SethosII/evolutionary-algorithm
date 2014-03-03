@@ -22,19 +22,19 @@ public class Main {
 	
 	public static void main(String args[]) throws IOException {
 
-		int runs = 1;
+		int runs = 100;
 		int generations = 100;
-		int amountStart = 100;
+		int amountStart = 500;
 		int amountEnd = 500;
 		int alleles = 10;
-		int lowerBound = -512;
-		int upperBound = 511;
-		double rate = 30.0;
-		double strength = 5;
-		double selectionRate = 1d/6d;
+		int lowerBound = -10;
+		int upperBound = 10;
+		double rate = 10.0;
+		double strength = 2;
+		double selectionRate = 1d/7d; // 1/5 für null 1/7 für griewank
 		boolean isBinary = false;
-		String fitnessType = "griewank"; // null, griewank, test
-		String mutationType = "linear"; // null, linear, exponential, exponentialdec, special
+		String fitnessType = "null"; // null, griewank, test
+		String mutationType = "exponentialdec"; // null, linear, exponential, exponentialdec, special
 		String populationType = "null"; // null, linear
 		String location = ".";
 		boolean getVars = false;
@@ -234,8 +234,8 @@ public class Main {
 			System.out.println("mean: " + p.mean + ", meansquare: "
 					+ p.meanSquare);
 
-			String csvname = location + "\\" + fitnessType + "_Allele_" + alleles + "_run_" + k + ".csv";
-			GenerateFile.generateCsvFile(csvname, fitness_best, fitness_worst, fitness_average, fitness_geometric);
+			// String csvname = location + "\\" + fitnessType + "_Allele_" + alleles + "_run_" + k + ".csv";
+			// GenerateFile.generateCsvFile(csvname, fitness_best, fitness_worst, fitness_average, fitness_geometric);
 			
 
 		}
@@ -248,7 +248,10 @@ public class Main {
 			
 		}
 		
-		String csvname_mean = location + "\\" + fitnessType + "_Allele_" + alleles + "_gesamt.csv";
+		String csvname_mean = location + "\\fT_" + fitnessType + "_A_"
+				+ alleles + "_aS_" + amountStart + "_aE_" + amountEnd + "_pT_"
+				+ populationType + "_mR_" + rate + "_mS_" + strength + "_mT_"
+				+ mutationType + "_gesamt.csv";
 		
 		GenerateFile.generateMeanCsvFile(csvname_mean, runs_best, runs_worst, runs_mean, runs_meansquare);
 
