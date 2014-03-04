@@ -194,7 +194,7 @@ public class Main {
 
 				// 4. Rekombination
 				Population pNew = pForNew.recombinate(
-						"arithmetic", populationType, i, amountEnd);
+						"arithmetic", populationType, i, generations, amountStart, amountEnd);
 							
 				// 5. Umweltselektion
 

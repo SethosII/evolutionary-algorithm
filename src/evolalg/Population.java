@@ -173,8 +173,8 @@ public class Population {
 	}
 
 	public Population recombinate(String typ, String type, int iteration,
-			int amountEnd) {
-		int amount = amountEnd;
+			int generations, int amountStart, int amountEnd) {
+		int amount = amountStart - (amountStart - amountEnd) / generations * iteration;
 		Population childs = new Population();
 		Individuum[] childs2 = new Individuum[amount];
 		switch (typ) {
