@@ -235,7 +235,7 @@ public class Population {
 			break;
 
 		case "linear":
-			count *= (generations - iteration) / generations;
+			count *= (double)(generations - iteration) / (double)generations;
 			break;
 
 		case "exponential":
