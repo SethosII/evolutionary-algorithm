@@ -22,7 +22,7 @@ public class Main {
 	
 	public static void main(String args[]) throws IOException {
 
-		int runs = 1;
+		int runs = 20;
 		int generations = 100;
 		int amountStart = 5000;
 		int amountEnd = 500;
@@ -135,6 +135,7 @@ public class Main {
 
 				// 6. Mutation
 				pNew.mutate(rate, strength, i, generations, mutationType);
+//				pNew.mutate_print(rate, strength, i, generations, mutationType);
 
 				// 7. Bestimmung der Fitness der Individuen der neuen Population
 				pNew.calculateFitness(fitnessType);

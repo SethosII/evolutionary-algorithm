@@ -153,6 +153,18 @@ public class Individuum {
 		return fitness;
 	}
 
+	public void mutate_print(double strength) {
+		System.out.println("\nMutation:");
+		System.out.print("Individuum vor Mutation: ");
+		printIndividuum();
+		for (int i = 0; i < this.alleles.length; i++) {
+			this.alleles[i] += strength
+					* Math.pow(-1, (int) (Math.random() * 2) + 1);
+		}
+		System.out.print("Individuum nach Mutation: ");
+		printIndividuum();
+	}
+	
 	public void mutate(double strength) {
 		for (int i = 0; i < this.alleles.length; i++) {
 			this.alleles[i] += strength

@@ -257,6 +257,39 @@ public class Population {
 			this.population[(int) (Math.random() * length)].mutate(strength);
 		}
 	}
+	
+	// Mutation mit Ausgabe
+	public void mutate_print(double rate, double strength, int iteration,
+			int generations, String type) {
+		int length = this.population.length;
+		int count = (int) (length * rate / 100);
+		switch (type) {
+		case "null":
+			break;
+
+		case "linear":
+			count *= (double)(generations - iteration) / (double)generations;
+			break;
+
+		case "exponential":
+			count *= Math.pow(Math.E, -0.04 * iteration);
+			break;
+
+		case "exponentialdec":
+			count *= 1d - Math.pow(Math.E, 0.04 * iteration) / 60d;
+			break;
+
+		case "special":
+			break;
+
+		default:
+			System.out.println("Unbekannter Mutationstyp");
+			break;
+		}
+		for (int i = 0; i < count; i++) {
+			this.population[(int) (Math.random() * length)].mutate_print(strength);
+		}
+	}
 
 	// Abbruchbedingung prüfen
 	public boolean evaluate() {
