@@ -24,7 +24,7 @@ public class Main {
 
 		int runs = 20;
 		int generations = 100;
-		int amountStart = 5000;
+		int amountStart = 500;
 		int amountEnd = 500;
 		int alleles = 10;
 		int lowerBound = -512;
@@ -101,12 +101,6 @@ public class Main {
 			// 1. Bestimmung der Ausgangspopulation
 			p.createPopulation(amountStart, alleles, lowerBound, upperBound,
 					isBinary);
-
-//			String name = location + "\\fT_" + fitnessType + "_A_"
-//			+ alleles + "_aS_" + amountStart + "_aE_" + amountEnd + "_pT_"
-//			+ populationType + "_mR_" + rate + "_mS_" + strength + "_mT_"
-//			+ mutationType + "_gesamt.csv";
-//			p.loadPopulation(name, amountStart);
 					
 			if (isBinary) {
 				p.toDecimal();
@@ -119,8 +113,6 @@ public class Main {
 			// 2. Bestimmung der Fitness der Individuen der Ausgangspopulation
 			p.calculateFitness(fitnessType);
 
-			// System.out.println("Start:");
-			// p.printPopulation();
 
 			int i = 0;
 			 while (i < generations) {
@@ -132,6 +124,8 @@ public class Main {
 						"arithmetic", populationType, i, generations, amountStart, amountEnd);
 							
 				// 5. Umweltselektion
+				Population pTest = pNew.selection("komma", selectionRate);
+				pNew = pTest;
 
 				// 6. Mutation
 				pNew.mutate(rate, strength, i, generations, mutationType);
@@ -141,12 +135,6 @@ public class Main {
 				pNew.calculateFitness(fitnessType);
 
 				p = pNew;
-				// System.out.println(i + ":");
-				// p.sort(0, p.getPopulation().length - 1);
-				// p.printPopulation();
-				// System.out.println();
-				// new BufferedReader(new
-				// InputStreamReader(System.in)).readLine();
 
 				// 8. auf Abbruchkriterium prüfen, sonst 3.
 
