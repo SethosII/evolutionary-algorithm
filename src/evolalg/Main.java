@@ -26,7 +26,7 @@ public class Main {
 		int generations = 100;
 		int amountStart = 500;
 		int amountEnd = 500;
-		int alleles = 10;
+		int alleles = 30;
 		int lowerBound = -512;
 		int upperBound = 511;
 		double rate = 10.0;

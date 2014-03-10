@@ -74,13 +74,6 @@ public class Population {
 
 		worst = population[population.length - 1];
 		best = population[0];
-		// System.out.println("Worst: " + worst.getFitness() + "\tBest: " +
-		// best.getFitness() + "\tResult: " + (best.getFitness() <
-		// worst.getFitness()));
-		// if (best.getFitness() > worst.getFitness()) {
-		// this.printPopulation();
-		// (new BufferedReader(new InputStreamReader(System.in))).readLine();
-		// }
 		mean = sum / population.length;
 		meanSquare = Math.pow(Math.E, 1d / (double) population.length * sumLog);
 	}
@@ -110,31 +103,6 @@ public class Population {
 			
 			break;
 
-		// case "q_turnier":
-		// int q = 5;
-		// Individuum[] indi = new Individuum[q];
-		// Random r = new Random();
-		// int cnt = 0;
-		//
-		// while (cnt < q) {
-		// indi[cnt] = getPopulation()[r.nextInt()];
-		// cnt++;
-		// }
-		//
-		// double cur_fitness = 0,
-		// fitness = 1;
-		// int index = 0;
-		// for (int i = 0; i < indi.length; i++) {
-		// cur_fitness = indi[i].getFitness();
-		// if (cur_fitness < fitness) {
-		// fitness = cur_fitness;
-		// index = i;
-		// }
-		// }
-		//
-		// System.out.println("Index des Gewinners: " + index);
-		// Individuum q_newElder = indi[index];
-		// break;
 
 		default:
 			System.out.println("Unbekannter Selektionstyp");
