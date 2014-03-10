@@ -56,7 +56,7 @@ public class Individuum {
 	public void printIndividuum() {
 		System.out.print("|");
 		for (int i = 0; i < alleles.length; i++) {
-			System.out.printf("%+.4f|", alleles[i]);
+			System.out.printf("%+.9f|", alleles[i]);
 		}
 		System.out.println("\tF:" + fitness);
 	}

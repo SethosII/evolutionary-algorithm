@@ -22,18 +22,18 @@ public class Main {
 	
 	public static void main(String args[]) throws IOException {
 
-		int runs = 100;
+		int runs = 1;
 		int generations = 100;
-		int amountStart = 500;
+		int amountStart = 5000;
 		int amountEnd = 500;
 		int alleles = 10;
-		int lowerBound = -10;
-		int upperBound = 10;
-		double rate = 25.0;
-		double strength = 2;
-		double selectionRate = 1d/5d; // 1/5 für null 1/7 für griewank
+		int lowerBound = -512;
+		int upperBound = 511;
+		double rate = 10.0;
+		double strength = 1;
+		double selectionRate = 1d/7d; // 1/5 für null 1/7 für griewank
 		boolean isBinary = false;
-		String fitnessType = "null"; // null, griewank, test
+		String fitnessType = "griewank"; // null, griewank, test
 		String mutationType = "exponentialdec"; // null, linear, exponential, exponentialdec, special
 		String populationType = "null"; // null, linear
 		String location = ".";
@@ -155,7 +155,9 @@ public class Main {
 				fitness_average[i] = p.mean;
 				fitness_geometric[i] = p.meanSquare;
 				
-				//System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
+//				System.out.print("Generation " + i + ": ");
+//				p.getPopulation()[0].printIndividuum();
+//				System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
 				
 				runs_best[i] += fitness_best[i];
 				runs_worst[i] += fitness_worst[i];
