@@ -136,11 +136,11 @@ public class Individuum {
 			}
 			break;
 
-		case "ein-punkt":
-			for (int i = 0; i < this.alleles.length; i++) {
-				tmp.alleles[i] = (this.alleles[i] + individuum.alleles[i]) / 2;
-			}
-			break;
+//		case "ein-punkt":
+//			for (int i = 0; i < this.alleles.length; i++) {
+//				tmp.alleles[i] = (this.alleles[i] + individuum.alleles[i]) / 2;
+//			}
+//			break;
 
 		default:
 			System.out.println("Unbekannter Rekombinationstyp");

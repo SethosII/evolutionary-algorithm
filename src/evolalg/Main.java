@@ -29,15 +29,17 @@ public class Main {
 		int alleles = 10;
 		int lowerBound = -10;
 		int upperBound = 10;
-		double rate = 10.0;
+		double rate = 25.0;
 		double strength = 2;
-		double selectionRate = 1d/7d; // 1/5 für null 1/7 für griewank
+		double selectionRate = 1d/5d; // 1/5 für null 1/7 für griewank
 		boolean isBinary = false;
 		String fitnessType = "null"; // null, griewank, test
 		String mutationType = "exponentialdec"; // null, linear, exponential, exponentialdec, special
 		String populationType = "null"; // null, linear
 		String location = ".";
 		boolean getVars = false;
+		
+		double fitness = 1;
 		
 		if (getVars) {
 			Scanner sc = new Scanner(System.in);
@@ -72,6 +74,8 @@ public class Main {
 		}
 		
 		
+		//w double[runs];
+		
 		runs_best = new double[generations];
 		runs_worst = new double[generations];
 		runs_mean = new double[generations];
@@ -91,78 +95,6 @@ public class Main {
 		System.out.println("Evolutionäre Algorithmen");
 		System.out.println("========================");
 
-//		for (int k = 0; k < runs; k++) {
-//			Population p = new Population();
-//			// 1. Bestimmung der Ausgangspopulation
-//			p.createPopulation(amountStart, alleles, lowerBound, upperBound,
-//					isBinary);
-//
-////			String name = "Startpopulation_" + fitnessType + "_Allele_" + alleles + ".txt";
-////			p.loadPopulation(name, amountStart);
-//					
-//			if (isBinary) {
-//				p.toDecimal();
-//			}
-//			
-//			// Anfangspopulation in Datei schreiben
-//			String pathname = location + "\\" + fitnessType + "_Allele_" + alleles + ".txt";
-//			GenerateFile.savePopulationToFile(pathname, p, alleles);
-//
-//			// 2. Bestimmung der Fitness der Individuen der Ausgangspopulation
-//			p.calculateFitness(fitnessType);
-//
-//			// System.out.println("Start:");
-//			// p.printPopulation();
-
-//			double x = 10000;
-//			double abbruch = 1e-10;
-//			int i = 0;
-//			 while (x > abbruch) {
-//				// 3. Selektion
-//				Population pForNew = p.selection("komma", selectionRate);
-//
-//				// 4. Rekombination
-//				Population pNew = pForNew.recombinate(
-//						"arithmetic", populationType, i, amountEnd);
-//				
-//				// 5. Umweltselektion
-//				Population pEnv = new Population();
-//				pEnv.createPopulation(p, pForNew, fitnessType);
-//				//pEnv.selection("komma", selectionRate);
-//				pNew.setPopulation(pEnv.getPopulation());
-//
-//				// 6. Mutation
-//				pNew.mutate(rate, strength, i, generations, mutationType);
-//
-//				// 7. Bestimmung der Fitness der Individuen der neuen Population
-//				pNew.calculateFitness(fitnessType);
-//
-//				p = pNew;
-//				// System.out.println(i + ":");
-//				// p.sort(0, p.getPopulation().length - 1);
-//				// p.printPopulation();
-//				// System.out.println();
-//				// new BufferedReader(new
-//				// InputStreamReader(System.in)).readLine();
-//
-//				// 8. auf Abbruchkriterium prüfen, sonst 3.
-//
-//				p.sort(0, p.getPopulation().length - 1);
-////				fitness_best[i] = p.best.getFitness();
-////				fitness_worst[i] = p.worst.getFitness();
-////				fitness_average[i] = p.mean;
-////				fitness_geometric[i] = p.meanSquare;
-////				
-////				//System.out.println("Generation : " + i + "\tFitness: " + fitness_best[i]);
-////				
-////				runs_best[i] += fitness_best[i];
-////				runs_worst[i] += fitness_worst[i];
-////				runs_mean[i] += fitness_average[i];
-////				runs_meansquare[i] += fitness_geometric[i];
-//				x = p.best.getFitness();
-//				System.out.println("Generation: " + i + "\tFitness: " + x);
-//				i++;
-//			}		
 		
 		for (int k = 0; k < runs; k++) {
 			Population p = new Population();
@@ -170,7 +102,10 @@ public class Main {
 			p.createPopulation(amountStart, alleles, lowerBound, upperBound,
 					isBinary);
 
-//			String name = "Startpopulation_" + fitnessType + "_Allele_" + alleles + ".txt";
+//			String name = location + "\\fT_" + fitnessType + "_A_"
+//			+ alleles + "_aS_" + amountStart + "_aE_" + amountEnd + "_pT_"
+//			+ populationType + "_mR_" + rate + "_mS_" + strength + "_mT_"
+//			+ mutationType + "_gesamt.csv";
 //			p.loadPopulation(name, amountStart);
 					
 			if (isBinary) {
@@ -231,13 +166,16 @@ public class Main {
 
 			System.out.println("Run " + k + ":");
 			p.getPopulation()[0].printIndividuum();
+			
 			System.out.println("mean: " + p.mean + ", meansquare: "
 					+ p.meanSquare);
+			
+			if (p.getPopulation()[0].getFitness() < fitness) fitness = p.getPopulation()[0].getFitness();
 
 			// String csvname = location + "\\" + fitnessType + "_Allele_" + alleles + "_run_" + k + ".csv";
 			// GenerateFile.generateCsvFile(csvname, fitness_best, fitness_worst, fitness_average, fitness_geometric);
 			
-
+			
 		}
 		
 		for (int x = 0; x < runs_best.length; x++) {
@@ -247,6 +185,9 @@ public class Main {
 			runs_meansquare[x] /= runs;
 			
 		}
+		
+	
+		System.out.println("\nBeste Fitness: " + fitness);
 		
 		String csvname_mean = location + "\\fT_" + fitnessType + "_A_"
 				+ alleles + "_aS_" + amountStart + "_aE_" + amountEnd + "_pT_"
